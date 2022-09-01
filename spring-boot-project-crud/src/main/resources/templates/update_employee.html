@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Visitors Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+	<div class="container">
+		<h1>Visitor Management System</h1>
+		<hr>
+		<a th:href= "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+		<a th:href= "@{/fetchEmployeeData}" class="btn btn-primary btn-sm mb-3">Fetch Employee Data</a>
+		<a th:href= "@{/showNewVisitorForm}" class="btn btn-primary btn-sm mb-3">Add Visitor</a>
+		<a th:href= "@{/showVisitors}" class="btn btn-primary btn-sm mb-3">Show Visitors</a>
+		<a th:href= "@{/logout}" class="btn btn-primary btn-sm mb-3">logout</a>
+		<h3>Update Employee Details</h3>
+		<p th:text = "${message}"></p>
+		<form name="updateEmployeeForm" action="#" th:action="@{/saveUpdatedEmployee}" th:object="${employee}"
+			th:method="POST" onsubmit="return validateForm()">
+			
+			<input type="hidden" th:field="*{id}">
+			
+			<input type="text" th:field="*{firstName}" name="firstName"
+				 class="form-control mb-4 col-4" required autofocus="autofocus">
+
+			<input type="text" th:field="*{lastName}" name="lastName"
+				 class="form-control mb-4 col-4" required autofocus="autofocus">
+
+			<input type="email" th:field="*{email}" name="email"
+				class="form-control mb-4 col-4" required autofocus="autofocus">
+				
+			<input type="tel" th:field="*{contact}" name="contact"
+			class="form-control mb-4 col-4" required autofocus="autofocus">
+
+			<button type="submit" class="btn btn-info col-2">Save
+				Employee</button>
+
+		</form>
+
+	</div>
+	
+	<script type="text/javascript">
+			function validateForm(){
+			var flag=0;
+			var name=document.updateEmployeeForm.firstName.value
+			var lname=document.updateEmployeeForm.lastName.value
+			var contact=document.updateEmployeeForm.contact.value
+			var email=document.updateEmployeeForm.email.value
+			if(name.length<2){
+		 		alert("Name Should be of Atleast 2 Char");
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(lname.length<2){
+		 		alert("Last Name Should be of Atleast 2 Char");
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(contact.length<10 ||contact.length>10){
+		 		alert("Contact Number Should be of 10 Digits Only");
+		 		return false;
+		 		flag++;
+		 	}
+			
+			}
+		</script>
+	
+
+</body>
+</html>

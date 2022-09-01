@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Visitors Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+
+
+	<div class="container">
+		<h1>Visitors Management System</h1>
+		<hr>
+		<a th:href= "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+		<a th:href= "@{/fetchEmployeeData}" class="btn btn-primary btn-sm mb-3">Fetch Employee Data</a>
+		<a th:href= "@{/showNewVisitorForm}" class="btn btn-primary btn-sm mb-3">Add Visitor</a>
+		<a th:href= "@{/showVisitors}" class="btn btn-primary btn-sm mb-3">Show Visitors</a>
+		<a th:href= "@{/logout}" class="btn btn-primary btn-sm mb-3">logout</a>
+		<h3>Update Employee Details</h3>
+
+		<form name="newVisitorForm" action="#" th:action="@{/saveVisitors}" th:object="${visitor}" 
+			th:method="POST" onsubmit="return validateForm2()">
+			
+			<input type="hidden" th:field="*{id}">
+			
+			
+			<label>First Name</label>
+			<input type="text" th:field="*{firstName}"
+				 class="form-control mb-4 col-4" placeholder="Visitor First Name" name="firstName" required autofocus="autofocus">
+			
+			
+			<label>Last Name</label>
+			<input type="text" th:field="*{lastName}"
+				 class="form-control mb-4 col-4" placeholder="Visitor Last Name" name="lastName" required autofocus="autofocus">
+			
+			
+			<label>Contact</label>
+			<input type="number" th:field="*{contact}" 
+				class="form-control mb-4 col-4" placeholder="Visitor Contact No" name="contact" required autofocus="autofocus">
+			
+			
+			<label>Location</label>		
+			<input type="text" th:field="*{location}" 
+			class="form-control mb-4 col-4" placeholder="Visitor's Location" name="location" required autofocus="autofocus">
+			
+			
+			<label>Reason</label>
+			<input type="text" th:field="*{reason}" 
+			class="form-control mb-4 col-4" placeholder="Reason for Visiting" name="reason" required autofocus="autofocus">
+			
+			
+			<label>Date</label>
+			<input type="date" th:field="*{date}" 
+			class="form-control mb-4 col-4" placeholder="Visiting Date" name="date" required autofocus="autofocus">
+			
+			
+			<label>In Time</label>
+			<input type="time" th:field="*{inTime}" 
+			class="form-control mb-4 col-4" placeholder="Visitor's in Time" name="inTime" required autofocus="autofocus">
+			
+
+			<input type="hidden" th:field="*{updatedBy}" th:value=${session.email}
+			class="form-control mb-4 col-4" required autofocus="autofocus">
+
+			<button type="submit" class="btn btn-info col-2">Save
+				Details</button>
+
+		</form>
+
+	</div>
+	
+	<script type="text/javascript">
+		function validateForm2(){
+			var	flag=0
+		 	var name=document.newVisitorForm.firstName.value;
+		 	var lname=document.newVisitorForm.lastName.value;
+		 	var contact=document.newVisitorForm.contact.value;
+		 	var location=document.newVisitorForm.location.value;
+		 	var reason=document.newVisitorForm.reason.value;
+		 	var date=document.newVisitorForm.date.value;
+		 	var inTime=document.newVisitorForm.inTime.value;
+		 	
+		 	
+    		let currentDate = new Date();
+    		let cDay = currentDate.getDate();
+    		let cMonth = currentDate.getMonth();
+    		let cYear = currentDate.getFullYear();
+    		let cHr=currentDate.getHours();
+    		let cMin=currentDate.getMinutes();
+    		let cSec=currentDate.getSeconds();
+    		var time=cHr+":"+cMin+":"+cSec;
+    		var d2=new Date(cYear + "-" + cMonth +'-' + cDay);
+    		var d1=new Date(date); //yyyy-mm-dd
+    		
+    		
+		 	if(name.length<2){
+		 		alert("Name Should be of Atleast 2 Char");
+		 		newVisitorForm.firstName.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(lname.length<2){
+		 		alert("Last Name Should be of Atleast 2 Char");
+		 		newVisitorForm.lastName.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(contact.length<10 ||contact.length>10){
+		 		alert("Contact Number Should be of 10 Digits Only");
+		 		newVisitorForm.contact.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(location.length<3){
+		 		alert("Location Name Should be of Atleast 3 Char");
+		 		newVisitorForm.location.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(reason.length<3){
+		 		alert("Reason Should be of Atleast 3 Char");
+		 		newVisitorForm.reason.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(d1>currentDate){
+		 		alert("Please Enter Valid Date");
+		 		newVisitorForm.date.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(inTime>time){
+		 	alert("Please Enter Valid in time");
+		 		newVisitorForm.inTime.focus();
+		 		return false;
+		 		flag++;
+		 	}
+		 	
+		 	if(flag==0){
+		 		return true;
+		 	}
+		 	
+		}
+	</script>
+
+</body>
+</html>

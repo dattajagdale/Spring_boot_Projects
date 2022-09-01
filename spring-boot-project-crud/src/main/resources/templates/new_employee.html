@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Visitors Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+	<div class="container">
+		<h1>Visitors Management System</h1>
+		<hr>
+		<a th:href= "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+		<a th:href= "@{/fetchEmployeeData}" class="btn btn-primary btn-sm mb-3">Fetch Employee Data</a>
+		<a th:href= "@{/showNewVisitorForm}" class="btn btn-primary btn-sm mb-3">Add Visitor</a>
+		<a th:href= "@{/showVisitors}" class="btn btn-primary btn-sm mb-3">Show Visitors</a>
+		<a th:href= "@{/logout}" class="btn btn-primary btn-sm mb-3">logout</a>		
+		<h3>Add Employee Details</h3>
+		
+		<p th:text = "${message}"></p>
+
+		<form name="newEmployeeForm" action="#" th:action="@{/saveEmployee}" th:object="${employee}" th:method="POST" onsubmit="return validateForm()">
+		
+			<lable>First Name</lable>
+			<input type="text" th:field="*{firstName}" name="firstName"
+			placeholder=" Employee First Name" class="form-control mb-4 col-4" required autofocus="autofocus">
+			
+			
+			<lable>Last Name</lable>
+			<input type="text" th:field="*{lastName}" name="lastName"
+			placeholder=" Employee Last Name" class="form-control mb.-4 col-4" required autofocus="autofocus">
+			
+			
+			<lable>Email</lable>
+			<input type="email" th:field="*{email}" name="email"
+			placeholder=" Employee Email" class="form-control mb-4 col-4" required autofocus="autofocus">
+			
+			
+			<lable>Contact</lable>
+			<input type="number" th:field="*{contact}" name="contact"
+			placeholder=" 8356069709" class="form-control mb-4 col-4" required autofocus="autofocus" maxlength="10" >
+			
+			
+			
+			<button type="submit" class="btn btn-info col-2">Save Employee</button>
+
+		</form>
+		
+		<script type="text/javascript">
+			function validateForm(){
+			var flag=0;
+			var name=document.newEmployeeForm.firstName.value
+			var lname=document.newEmployeeForm.lastName.value
+			var contact=document.newEmployeeForm.contact.value
+			var email=document.newEmployeeForm.email.value
+			if(name.length<2){
+		 		alert("Name Should be of Atleast 2 Char");
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(lname.length<2){
+		 		alert("Last Name Should be of Atleast 2 Char");
+		 		return false;
+		 		flag++;
+		 	}
+		 	if(contact.length<10 ||contact.length>10){
+		 		alert("Contact Number Should be of 10 Digits Only");
+		 		return false;
+		 		flag++;
+		 	}
+			
+			}
+		</script>
+
+	</div>
+</body>
+</html>

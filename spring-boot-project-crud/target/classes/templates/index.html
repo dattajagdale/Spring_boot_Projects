@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Visitors Management System</title>
+
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+	
+	<div class="container my-2">
+	<h1>Visitors Management System</h1>
+	<hr>
+		<a th:href= "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+		<a th:href= "@{/fetchEmployeeData}" class="btn btn-primary btn-sm mb-3">Fetch Employee Data</a>
+		<a th:href= "@{/showNewVisitorForm}" class="btn btn-primary btn-sm mb-3">Add Visitor</a>
+		<a th:href= "@{/showVisitors}" class="btn btn-primary btn-sm mb-3">Show Visitors</a>
+		<a th:href= "@{/logout}" class="btn btn-primary btn-sm mb-3">logout</a>
+		
+		<h3>Employee List</h3>
+		
+		
+		
+		<table border="1" class="table table-striped table responsive-md">
+			<thead>
+				<tr>
+					<th>Employee First Name</th>
+					<th>Employee Last Name</th>
+					<th>Employee Email</th>
+					<th>Employee Contact</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee:  ${listEmployees}">
+					<td th:text="${employee.firstName}"/>
+					<td th:text="${employee.lastName}"/>
+					<td th:text="${employee.email}"/>
+					<td th:text="${employee.contact}"/>
+					<td><a th:href="@{showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-primary">Update</a>
+						<a th:href="@{deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Visitors Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+	
+	<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+</head>
+<body>
+
+<div class="container my-2">
+
+		<h1>Visitors Management System</h1>
+		<hr>
+		<a th:href= "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">Add Employee</a>
+		<a th:href= "@{/fetchEmployeeData}" class="btn btn-primary btn-sm mb-3">Fetch Employee Data</a>
+		<a th:href= "@{/showNewVisitorForm}" class="btn btn-primary btn-sm mb-3">Add Visitor</a>
+		<a th:href= "@{/showVisitors}" class="btn btn-primary btn-sm mb-3">Show Visitors</a>
+		<a th:href= "@{/logout}" class="btn btn-primary btn-sm mb-3">logout</a>
+		<h3>Visitors List</h3>
+		
+		<table border="1" class="table table-striped table responsive-md">
+			<thead>
+				<tr>
+					<th>Visitor First Name</th>
+					<th>Visitor Last Name</th>
+					<th>Visitor Contact</th>
+					<th>Visitor Location</th>
+					<th>Reason</th>
+					<th>Date</th>
+					<th>Visitor In Time</th>
+					<th>Visitor Out Time</th>
+					<th>Visitors Entry By</th>
+					<th>Visitor Updated By</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="visitor:  ${listVisitors}">
+					<td th:text="${visitor.firstName}"/>
+					<td th:text="${visitor.lastName}"/>
+					<td th:text="${visitor.contact}"/>
+					<td th:text="${visitor.location}"/>
+					<td th:text="${visitor.reason}"/>
+					<td th:text="${visitor.date}"/>
+					<td th:text="${visitor.inTime}"/>
+					<td th:text="${visitor.outTime}"/>
+					<td th:text="${visitor.entryBy}"/>
+					<td th:text="${visitor.updatedBy}"/>
+					
+					<td><a th:href="@{showFormForUpdateVisitor/{id}(id=${visitor.id})}" class="btn btn-primary">Update</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+</html>
